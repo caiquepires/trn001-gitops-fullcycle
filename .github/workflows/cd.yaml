@@ -13,10 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build and push image to Docker Hub
-        uses: docker/build-push-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: ${{ secrets.DOCKER_USERNAME }}/trn001-gitops-fullcycle
-          tags: ${{ github.sha }}, myapp:latest
+
+      - name: Build and push image to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/trn001-gitops-fullcycle:latest,${{ secrets.DOCKER_USERNAME }}/trn001-gitops-fullcycle:${{ github.sha }}
