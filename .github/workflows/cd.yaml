@@ -18,4 +18,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: myapp:latest
+          repository: ${{ secrets.DOCKER_USERNAME }}/trn001-gitops-fullcycle
+          tags: ${{ github.sha }}, myapp:latest
